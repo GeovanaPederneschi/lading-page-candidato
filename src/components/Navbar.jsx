@@ -4,6 +4,7 @@ const links = [
   { href: '#quem-e', label: 'Quem é Carlos' },
   { href: '#propostas', label: 'Propostas' },
   { href: '#conquistas', label: 'Conquistas' },
+  { href: '#foto-com-candidato', label: 'Sua foto com Carlos' },
   { href: '#cadastro', label: 'Apoiar' },
 ]
 
