@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabase, supabaseConfigured } from '../lib/supabaseClient'
 
 const camposIniciais = { nome: '', email: '', bairro: '', whatsapp: '' }
 
@@ -13,6 +14,7 @@ export default function Formulario() {
   const [form, setForm] = useState(camposIniciais)
   const [enviado, setEnviado] = useState(false)
   const [carregando, setCarregando] = useState(false)
+  const [erro, setErro] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,13 +24,30 @@ export default function Formulario() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setErro('')
+
+    if (!supabaseConfigured) {
+      setErro('Cadastro indisponível no momento. Tente novamente mais tarde.')
+      return
+    }
+
     setCarregando(true)
-    setTimeout(() => {
-      setCarregando(false)
-      setEnviado(true)
-    }, 1200)
+    const { error } = await supabase.from('supporters').insert({
+      nome: form.nome,
+      email: form.email,
+      whatsapp: form.whatsapp,
+      bairro: form.bairro,
+    })
+    setCarregando(false)
+
+    if (error) {
+      setErro('Não foi possível enviar seu cadastro. Tente novamente em instantes.')
+      return
+    }
+
+    setEnviado(true)
   }
 
   return (
@@ -176,6 +195,12 @@ export default function Formulario() {
                   </div>
                 </div>
               </div>
+
+              {erro && (
+                <p className="text-red-600 text-sm font-medium mb-4 text-center" role="alert">
+                  {erro}
+                </p>
+              )}
 
               {/* Submit */}
               <button
