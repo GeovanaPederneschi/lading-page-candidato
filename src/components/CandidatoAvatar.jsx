@@ -50,7 +50,7 @@ const candidatoAvatarInnerSvg = `
 `.trim()
 
 /** Full standalone SVG markup (grayscale baked in), for rasterizing onto a <canvas>. */
-export const candidatoAvatarSvgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" style="filter:grayscale(1) contrast(1.05)">${candidatoAvatarInnerSvg}</svg>`
+export const candidatoAvatarSvgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420" style="filter:grayscale(1) contrast(1.05)">${candidatoAvatarInnerSvg}</svg>`
 
 export const candidatoAvatarDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(candidatoAvatarSvgMarkup)}`
 
